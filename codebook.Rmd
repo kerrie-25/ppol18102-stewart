@@ -1,0 +1,46 @@
+---
+title: "codebook"
+author: "Kerrie Stewart"
+output: github_document
+---
+
+
+```{r}
+library(readr)
+eclsk <- read_csv("~/eclsk.csv")
+View(eclsk)
+```
+
+## Description
+
+This dataset comprises variables related to gender, academic achievement, school charactersitics, and family SES. 
+
+* Dependent variable: reading score
+* Independent variable: parent education
+* Control variables: income, female
+
+## Variable Descriptions
+
+* 'female': Binary, categorical variable. Is the participant female or not? Female = 0, Male = 1
+
+* 'parent.ed': What is the highest level of education for the participant's parent? Parental education is an ordinal variable. 
+
+* 'income': What is the annual income for the participant's household?
+
+* 'read': Participant's reading score
+
+```{r}
+summary(eclsk$parent.ed)
+```
+```{r}
+summary(eclsk$read)
+```
+```{r}
+summary(eclsk$female)
+```
+```{r}
+summary(eclsk$income)
+```
+
+
+
