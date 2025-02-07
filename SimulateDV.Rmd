@@ -12,6 +12,10 @@ Assessment of student learning and literacy
 Student reading scores
 
 ```{r}
+eclsk <- read.csv("eclsk.csv")
+```
+
+```{r}
 boot_score <- function(data){
 n <- nrow(data)
 boot <- sample(1:n, replace=TRUE)
@@ -32,12 +36,16 @@ print(sd(outputmean))
 ```
 
 ```{r}
-hist(output)
-print(output)
+boot_score <- function(data){
+n <- nrow(data)
+boot <- sample(1:n, replace=TRUE)
+read_boot <- data$read[boot]
+median(read_boot)
+}
+
+n_sims <- 10000
+outputmedian <- replicate(n_sims, boot_score(data=eclsk))
+
+hist(outputmedian)
 ```
-```{r}
-print(mean(eclsk$read, na.rm = T))
-```
-```{r}
-print(median(eclsk$read, na.rm = T))
-```
+
