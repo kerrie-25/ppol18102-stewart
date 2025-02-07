@@ -1,0 +1,43 @@
+---
+title: "Simulation DV"
+output: github_document
+---
+
+## Conceptual Definition
+
+Assessment of student learning and literacy
+
+## Operational Definition
+
+Student reading scores
+
+```{r}
+boot_score <- function(data){
+n <- nrow(data)
+boot <- sample(1:n, replace=TRUE)
+read_boot <- data$read[boot]
+mean(read_boot)
+}
+```
+
+
+```{r}
+n_sims <- 10000
+outputmean <- replicate(n_sims, boot_score(data=eclsk))
+```
+
+```{r}
+hist(outputmean)
+print(sd(outputmean))
+```
+
+```{r}
+hist(output)
+print(output)
+```
+```{r}
+print(mean(eclsk$read, na.rm = T))
+```
+```{r}
+print(median(eclsk$read, na.rm = T))
+```
