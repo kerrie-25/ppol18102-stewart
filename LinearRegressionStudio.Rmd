@@ -1,0 +1,63 @@
+---
+title: "Linear Regression"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+eclsk <- read.csv("eclsk.csv")
+```
+
+```{r}
+```
+
+```{r}
+library(rstanarm)
+```
+
+```{r}
+library(rstan)
+```
+
+## Linear Regression Model
+
+
+```{r}
+readscoremodel <- stan_glm(read ~ female, data=eclsk)
+print(readscoremodel)
+```
+
+## Scatterplot
+
+```{r}
+plot(eclsk$female, eclsk$read, 
+     xlab = "Female", ylab = "Reading Score", 
+     main = "Reading Score vs. Gender", 
+     pch = 19, col = "blue", 
+     xaxt = "n") 
+abline(readscoremodel, col = "red", lwd = 2)
+text(0.5, 50, labels = equation, col = 'green', cex = 1.2)
+```
+## Intercept and Coefficient
+```{r}
+intercept <- coef(readscoremodel)
+coefficient <- coef(readscoremodel)
+```
+
+```{r}
+print(intercept)
+```
+```{r}
+print(coefficient)
+```
+## Equation 
+```{r}
+```
+
+```
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

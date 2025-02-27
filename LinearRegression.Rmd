@@ -1,0 +1,79 @@
+---
+title: "Linear Regression"
+author: "Kerrie Stewart"
+output: github_document
+---
+
+```{r}
+eclsk <- read.csv("eclsk.csv")
+```
+
+
+```{r}
+library(rstanarm)
+library(rstan)
+```
+
+## Regression Model
+  
+```{r}
+Model <- stan_glm(read ~ female, data=eclsk)
+```
+
+```{r}
+summary(Model)
+```
+## R Squared
+
+```{r}
+r_squared_post <- bayes_R2(Model)
+```
+
+```{r}
+mean_r_squared <- mean(r_squared_post)
+```
+
+```{r}
+print(mean_r_squared)
+```
+
+
+
+## Scatterplot
+
+
+```{r}
+plot(eclsk$female, eclsk$read, 
+     xlab = "Female", ylab = "Reading Score", 
+     main = "Reading Score vs. Female", 
+     pch = 19, col = "blue", 
+     xaxt = "n") 
+abline(Model, col = "red", lwd = 2)
+```
+
+## Plot with Equation
+
+```{r}
+intercept <- coef(Model)[1]
+coefficient <- coef(Model)[2]
+```
+
+```{r}
+equation <- paste("y = ", round(intercept, 2), " + ", round(coefficient, 2), "x", sep = "")
+```
+
+```{r}
+plot(eclsk$female, eclsk$read, 
+     xlab = "Female", ylab = "Reading Score", 
+     main = "Reading Score vs. Female", 
+     pch = 19, col = "blue", 
+     xaxt = "n") 
+abline(Model, col = "red", lwd = 2)
+text(0.5, 50, labels = equation, col = 'green', cex = 1.2)
+```
+
+## Interpretation
+
+The model estimates the relationship between gender and reading scores. y is the reading score (dependent variable). Gender is measured as a binary variable where students are coded as either female (1) or not female (0). The intercept, the reading score for a student who is not female, is predicted to be 48.83. The slope (-2.36)  indicates that being female is associated with a decrease of 2.36 points in the reading score, on average, compared to students who are not female. This model suggests that female students have lower reading scores, on average , than non-female students. The R squared value is 0.0072 indicating that only 0.72% of the variance in reading scores is explained by whether a student is female or not. This low R squared suggests that gender is not a predictor of reading scores, or this model is not a good fit.
+
+
